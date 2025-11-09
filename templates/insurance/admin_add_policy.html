@@ -1,0 +1,71 @@
+{% extends 'insurance/adminbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+  a:link {
+        text-decoration: none;
+      }
+       label #sidebar_btn {
+      z-index: 1;
+      color: #fff;
+      position: fixed;
+      cursor: pointer;
+      left: 300px;
+      padding-left: 60px;
+      margin-top:15px;
+      font-size: 20px;
+      transition: 0.5s;
+      transition-property: color;
+    }
+    .form-control {
+        background-color: #2f323a;
+        color: white;
+        border: 1px solid #444;
+    }
+    .form-control:focus {
+        background-color: #2f323a;
+        color: white;
+        border-color: #19B3D3;
+        box-shadow: none;
+    }
+    .btn-primary {
+        background-color: #19B3D3;
+        border-color: #19B3D3;
+    }
+    .btn-primary:hover {
+        background-color: #0B87A6;
+        border-color: #0B87A6;
+    }
+    label {
+        color: #ccc;
+    }
+  </style>
+</head>
+<h2 style="text-align:center; color:white;">ADD NEW POLICY</h2>
+<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+    {%csrf_token%}
+    <div class="form-group">
+        <label for="id_category_name">Category Name</label>
+        {% render_field policyForm.category_name class="form-control" placeholder="Enter Category Name" %}
+
+        <label for="id_policy_name">Policy Name</label>
+        {% render_field policyForm.policy_name class="form-control" placeholder="Enter Policy Name" %}
+
+        <label for="id_sum_assurance">Sum Assurance</label>
+        {% render_field policyForm.sum_assurance class="form-control" placeholder="Enter Sum Assurance" %}
+
+        <label for="id_premium">Premium</label>
+        {% render_field policyForm.premium class="form-control" placeholder="Enter Premium" %}
+
+        <label for="id_tenure">Tenure</label>
+        {% render_field policyForm.tenure class="form-control" placeholder="Enter Tenure" %}
+    </div>
+    <button type="submit" class="btn btn-primary">ADD</button>
+  </form>
+<br><br><br><br>
+{% endblock content %}

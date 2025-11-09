@@ -1,0 +1,129 @@
+{% extends 'insurance/adminbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+
+    .panel-primary {
+        border-color: #343a40;
+    }
+
+    .panel-heading {
+        background-color: #343a40 !important;
+        border-color: #343a40 !important;
+        color: #ffffff !important;
+    }
+
+    .panel {
+        background-color: #212529;
+        color: #ffffff;
+        border-color: #343a40;
+    }
+
+    .table {
+        color: #ffffff;
+    }
+
+    .table>thead>tr>th {
+        border-bottom: 1px solid #444;
+        color: #ffffff;
+    }
+
+    .table>tbody>tr>td {
+        border-top: 1px solid #444;
+        color: #ffffff;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #404040;
+    }
+
+    .btn-primary {
+        background-color: #19B3D3;
+        border-color: #19B3D3;
+    }
+
+    .btn-primary:hover {
+        background-color: #0B87A6;
+        border-color: #0B87A6;
+    }
+
+    .btn-danger {
+        background-color: #F56565;
+        border-color: #F56565;
+    }
+
+    .btn-danger:hover {
+        background-color: #e04848;
+        border-color: #e04848;
+    }
+  </style>
+</head>
+<br><br>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Policy Holder Record</h6>
+    </div>
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+        <th>Serial No.</th>
+          <th>Policy Name</th>
+          <th>Customer Name</th>
+          <th> Applied Date</th>
+          <th>Status</th>
+          <th class="text-right">Action</th>
+        </tr>
+      </thead>
+      {% for t in policyrecords %}
+      <tr>
+        <td> {{ forloop.counter }}</td>
+        <td> {{t.policy}}</td>
+        <td> {{t.customer}}</td>
+        
+        <td>{{t.creation_date}}</td>
+        <td>{{t.status}}</td>
+
+                    {% if t.status == 'Pending' %}
+                <td class="text-right">
+                    <a class="btn btn-primary btn-xs" href="{% url 'approve-request' t.id  %}">Approve</a>
+                    <a class="btn btn-danger btn-xs" href="{% url 'reject-request' t.id  %}">Reject</a>
+                </td>              
+
+                {% elif t.status == 'Approved' %}
+                <td class="text-right">
+                    <a class="btn btn-danger btn-xs" href="{% url 'terminate-policy' t.id  %}">Terminate</a>
+                </td>
+                {% else %}
+                <td class="text-right">
+                <span style="color:red;font-size:20px;" class="label success">{{t.status}}</span></td>
+                
+
+                {% endif %}
+
+
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<br><br><br><br><br><br>
+{% endblock content %}
